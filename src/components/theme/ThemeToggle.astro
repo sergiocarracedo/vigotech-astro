@@ -26,27 +26,40 @@ const t = themeToggleT[LANG]
 <script is:inline>
   ;(() => {
     const key = 'vigotech-theme'
-    const button = document.querySelector('[data-theme-toggle]')
-    const label = button?.querySelector('[data-theme-label]')
-    const darkLabel = button?.getAttribute('data-label-dark') || 'Dark mode'
-    const lightLabel = button?.getAttribute('data-label-light') || 'Light mode'
 
-    if (!button || !label) {
-      return
-    }
-
-    const apply = (dark) => {
+    const apply = (dark, label, darkLabel, lightLabel) => {
       document.documentElement.classList.toggle('dark', dark)
       window.localStorage.setItem(key, dark ? 'dark' : 'light')
       label.textContent = dark ? lightLabel : darkLabel
     }
 
-    const current = document.documentElement.classList.contains('dark')
-    label.textContent = current ? lightLabel : darkLabel
+    const setup = () => {
+      const button = document.querySelector('[data-theme-toggle]')
+      const label = button?.querySelector('[data-theme-label]')
+      const darkLabel = button?.getAttribute('data-label-dark') || 'Dark mode'
+      const lightLabel = button?.getAttribute('data-label-light') || 'Light mode'
 
-    button.addEventListener('click', () => {
-      const dark = !document.documentElement.classList.contains('dark')
-      apply(dark)
-    })
+      if (!(button instanceof HTMLButtonElement) || !(label instanceof HTMLElement)) {
+        return
+      }
+
+      if (button.dataset.themeToggleBound === 'true') {
+        const current = document.documentElement.classList.contains('dark')
+        label.textContent = current ? lightLabel : darkLabel
+        return
+      }
+
+      const current = document.documentElement.classList.contains('dark')
+      label.textContent = current ? lightLabel : darkLabel
+      button.dataset.themeToggleBound = 'true'
+
+      button.addEventListener('click', () => {
+        const dark = !document.documentElement.classList.contains('dark')
+        apply(dark, label, darkLabel, lightLabel)
+      })
+    }
+
+    setup()
+    document.addEventListener('astro:after-swap', setup)
   })()
 </script>

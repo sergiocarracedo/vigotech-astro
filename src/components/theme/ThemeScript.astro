@@ -1,9 +1,15 @@
 <script is:inline>
   (() => {
     const key = 'vigotech-theme'
-    const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    const stored = window.localStorage.getItem(key)
-    const dark = stored ? stored === 'dark' : preferDark
-    document.documentElement.classList.toggle('dark', dark)
+
+    const applyStoredTheme = () => {
+      const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      const stored = window.localStorage.getItem(key)
+      const dark = stored ? stored === 'dark' : preferDark
+      document.documentElement.classList.toggle('dark', dark)
+    }
+
+    applyStoredTheme()
+    document.addEventListener('astro:after-swap', applyStoredTheme)
   })()
 </script>

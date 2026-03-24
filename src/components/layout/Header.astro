@@ -105,64 +105,75 @@ const isActiveUrl = (url: string): boolean => {
 
 <script is:inline>
   ;(() => {
-    const root = document.querySelector('[data-mobile-nav-root]')
-    const toggle = root?.querySelector('[data-mobile-nav-toggle]')
-    const icon = root?.querySelector('[data-mobile-nav-icon]')
-    const panel = root?.querySelector('[data-mobile-nav-panel]')
-    const pageContent = document.querySelector('[data-page-content]')
+    const setup = () => {
+      const root = document.querySelector('[data-mobile-nav-root]')
+      const toggle = root?.querySelector('[data-mobile-nav-toggle]')
+      const icon = root?.querySelector('[data-mobile-nav-icon]')
+      const panel = root?.querySelector('[data-mobile-nav-panel]')
+      const pageContent = document.querySelector('[data-page-content]')
 
-    if (
-      !(root instanceof HTMLElement) ||
-      !(toggle instanceof HTMLButtonElement) ||
-      !(icon instanceof HTMLElement) ||
-      !(panel instanceof HTMLElement)
-    ) {
-      return
-    }
-
-    let open = false
-
-    const sync = () => {
-      root.dataset.mobileNavOpen = open ? 'true' : 'false'
-      panel.dataset.open = open ? 'true' : 'false'
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false')
-      icon.textContent = open ? 'close' : 'menu'
-      pageContent?.setAttribute('data-overlay-blocked', open ? 'true' : 'false')
-    }
-
-    const close = () => {
-      open = false
-      sync()
-    }
-
-    const toggleMenu = () => {
-      open = !open
-      sync()
-    }
-
-    toggle.addEventListener('click', (event) => {
-      event.stopPropagation()
-      toggleMenu()
-    })
-
-    panel.addEventListener('click', (event) => {
-      if (event.target === panel) {
-        close()
+      if (
+        !(root instanceof HTMLElement) ||
+        !(toggle instanceof HTMLButtonElement) ||
+        !(icon instanceof HTMLElement) ||
+        !(panel instanceof HTMLElement)
+      ) {
+        return
       }
-    })
 
-    panel.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        close()
+      let open = root.dataset.mobileNavOpen === 'true'
+
+      const sync = () => {
+        root.dataset.mobileNavOpen = open ? 'true' : 'false'
+        panel.dataset.open = open ? 'true' : 'false'
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false')
+        icon.textContent = open ? 'close' : 'menu'
+        pageContent?.setAttribute('data-overlay-blocked', open ? 'true' : 'false')
+      }
+
+      if (root.dataset.mobileNavBound === 'true') {
+        sync()
+        return
+      }
+
+      const close = () => {
+        open = false
+        sync()
+      }
+
+      const toggleMenu = () => {
+        open = !open
+        sync()
+      }
+
+      toggle.addEventListener('click', (event) => {
+        event.stopPropagation()
+        toggleMenu()
       })
-    })
 
-    window.addEventListener('resize', () => {
-      if (window.innerWidth >= 768) {
-        close()
-      }
-    })
+      panel.addEventListener('click', (event) => {
+        if (event.target === panel) {
+          close()
+        }
+      })
 
-    sync()
+      panel.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          close()
+        })
+      })
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) {
+          close()
+        }
+      })
+
+      root.dataset.mobileNavBound = 'true'
+      sync()
+    }
+
+    setup()
+    document.addEventListener('astro:after-swap', setup)
   })()
 </script>
