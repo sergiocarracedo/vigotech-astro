@@ -92,7 +92,12 @@ const titleHtml = renderMarkdownInline(title)
                   aria-expanded="false"
                 >
                   <span>Filtros</span>
-                  <span class="material-symbols-outlined text-[1.1rem]" data-sticky-controls-icon>tune</span>
+                  <span
+                    class="material-symbols-outlined text-[1.1rem]"
+                    data-sticky-controls-icon
+                  >
+                    tune
+                  </span>
                 </button>
               </div>
 
@@ -159,8 +164,7 @@ const titleHtml = renderMarkdownInline(title)
     class="vt-sticky-mobile-overlay"
     data-sticky-mobile-overlay
     aria-hidden="true"
-    tabindex="-1"
-  ></button>
+    tabindex="-1"></button>
 </div>
 
 <script is:inline>
@@ -200,7 +204,9 @@ const titleHtml = renderMarkdownInline(title)
     const configuredThreshold = Number(host.dataset.stickyThreshold || '0')
     const hasControls = floating.dataset.hasControls === 'true'
     const controls = floating.querySelector('.vt-sticky-controls')
-    const controlsToggle = floating.querySelector('[data-sticky-controls-toggle]')
+    const controlsToggle = floating.querySelector(
+      '[data-sticky-controls-toggle]',
+    )
     const controlsIcon = floating.querySelector('[data-sticky-controls-icon]')
     const buttons = Array.from(floating.querySelectorAll('[data-filter-id]'))
     const search = floating.querySelector('[data-sticky-search]')
@@ -231,6 +237,7 @@ const titleHtml = renderMarkdownInline(title)
       const narrow = window.innerWidth < 1024
       const expanded = !narrow || mobileExpanded
       controls.dataset.controlsExpanded = expanded ? 'true' : 'false'
+      floating.dataset.controlsExpanded = narrow && mobileExpanded ? 'true' : 'false'
       overlay.dataset.visible = narrow && mobileExpanded ? 'true' : 'false'
       pageContent?.setAttribute(
         'data-overlay-blocked',
@@ -238,7 +245,10 @@ const titleHtml = renderMarkdownInline(title)
       )
 
       if (controlsToggle instanceof HTMLButtonElement) {
-        controlsToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false')
+        controlsToggle.setAttribute(
+          'aria-expanded',
+          expanded ? 'true' : 'false',
+        )
       }
 
       if (controlsIcon instanceof HTMLElement) {

@@ -247,7 +247,12 @@ h6 {
 
 .vt-sticky-base {
   visibility: hidden;
+  opacity: 0;
   pointer-events: none;
+}
+
+.vt-sticky-base * {
+  visibility: hidden !important;
 }
 
 .vt-sticky-spacer {
@@ -271,7 +276,7 @@ h6 {
 
 .vt-sticky-shell[data-floating='true'] {
   position: fixed;
-  top: 6rem;
+  top: calc(6rem - 5px);
   z-index: 30;
   pointer-events: auto;
 }
@@ -283,6 +288,13 @@ h6 {
   -webkit-backdrop-filter: blur(20px);
   padding: 0.75rem;
   box-shadow: 0 22px 30px -26px rgba(0, 0, 0, 0.5);
+}
+
+.vt-sticky-shell[data-controls-expanded='true'] {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
 }
 
 .vt-sticky-shell[data-scrolled='false'] {
