@@ -1,0 +1,78 @@
+---
+import type { CollectionEntry } from 'astro:content'
+
+import { LOCALE } from '../../i18n/config'
+import { homeHeroT } from '../../i18n/home-hero'
+import { LANG } from '../../i18n/config'
+import GroupLogo from '../ui/GroupLogo.astro'
+
+type Props = {
+  event: CollectionEntry<'events'>
+}
+
+const { event } = Astro.props
+const t = homeHeroT[LANG]
+
+const formatEventDate = (dateValue: number): string =>
+  new Intl.DateTimeFormat(LOCALE, {
+    day: '2-digit',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+    .format(new Date(dateValue))
+    .replace(/\./g, '')
+
+const formatMonthShort = (dateValue: number): string =>
+  new Intl.DateTimeFormat(LOCALE, {
+    month: 'short',
+  })
+    .format(new Date(dateValue))
+    .replace(/\./g, '')
+---
+
+<article class='rounded-lg bg-white/40 p-3 text-ink-contrast'>
+  <div class='flex items-start justify-between gap-3'>
+    <div class='flex items-start gap-3'>
+      <GroupLogo
+        src={event.data.groupLogo}
+        name={event.data.groupName}
+        sizeClass='size-9'
+        fallbackClass='text-[10px] font-semibold text-[var(--ink)]'
+      />
+
+      <div>
+        <p class='text-[11px] uppercase tracking-[0.12em] text-ink-soft-contrast'>{event.data.groupName}</p>
+        <h2 class='mt-1 text-lg leading-tight font-medium'>{event.data.title}</h2>
+      </div>
+    </div>
+
+    <div class='rounded-lg bg-white/40 px-2 py-1 text-center text-ink-contrast'>
+      <p class='font-headline text-xl font-bold leading-none'>
+        {new Intl.DateTimeFormat(LOCALE, {
+          day: '2-digit',
+        }).format(new Date(event.data.date))}
+      </p>
+      <p class='mt-1 text-[10px] uppercase tracking-[0.12em] text-ink-contrast'>
+        {formatMonthShort(event.data.date)}
+      </p>
+    </div>
+  </div>
+
+  <div class='mt-3 flex flex-wrap items-center justify-between gap-2'>
+    <p class='flex-1 text-xs text-ink-soft-contrast'>{formatEventDate(event.data.date)}</p>
+
+    {event.data.location && <p class='text-right text-xs text-ink-soft-contrast'>{event.data.location}</p>}
+  </div>
+
+  {event.data.link && (
+    <a
+      href={event.data.link}
+      target='_blank'
+      rel='noreferrer'
+      class='mt-3 inline-flex text-xs font-semibold text-primary underline underline-offset-3'
+    >
+      {t.viewEvent}
+    </a>
+  )}
+</article>

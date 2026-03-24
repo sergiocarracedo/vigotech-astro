@@ -1,43 +1,50 @@
-# Astro Starter Kit: Minimal
+# VigoTech Website (Astro)
 
-```sh
-pnpm create astro@latest -- --template minimal
-```
+This project is the Astro migration of the VigoTech website.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Commands
 
-## 🚀 Project Structure
+| Command                 | Action                                   |
+| ----------------------- | ---------------------------------------- |
+| `pnpm install`          | Install dependencies                     |
+| `pnpm dev`              | Start local dev server                   |
+| `pnpm dev --mockEvents` | Start dev with synthetic upcoming events |
+| `pnpm check`            | Run Astro checks                         |
+| `pnpm build`            | Type-check and build static site         |
 
-Inside of your Astro project, you'll see the following folders and files:
+## Data source
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+By default, the site reads source files from:
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- `/works/vigotech/vigotech.github.io/static/vigotech.json`
+- `/works/vigotech/vigotech.github.io/static/vigotech-generated.json`
+- `/works/vigotech/vigotech.github.io/static/friends.json`
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Override path with `VIGOTECH_DATA_DIR` if needed.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Environment variables
 
-## 🧞 Commands
+- `VIGOTECH_MOCK_EVENTS`
+  - Used in development to generate synthetic upcoming events when real events are not available.
+  - Automatically set by `pnpm dev --mockEvents`.
 
-All commands are run from the root of the project, from a terminal:
+- `VIGOTECH_CONFIG_DATA_DIR`
+  - Optional override for local source JSON directory.
+  - Default: `public`.
+  - Used for `vigotech.json` and `friends.json`.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+- `VIGOTECH_GENERATED_DATA_DIR`
+  - Optional override for generated JSON directory.
+  - Default: `/works/vigotech/vigotech.github.io/static`.
+  - Used only for `vigotech-generated.json`.
 
-## 👀 Want to learn more?
+- `GOOGLE_CALENDAR_API_KEY`
+  - Used by `/api/calendar.json` to fetch events from VigoTech public Google Calendar.
+  - If omitted, the Axenda block still renders and keeps the iCal download link, but no live events are shown.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Group status
+
+- Group active/inactive is now manual.
+- Set `inactive: true` in source data for archived groups.
+
+Copy `.env.example` to `.env` and customize values for local work.

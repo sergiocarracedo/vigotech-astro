@@ -1,5 +1,6 @@
 # build output
 dist/
+build/
 # generated types
 .astro/
 
@@ -7,10 +8,23 @@ dist/
 node_modules/
 
 # logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+
+# testing
+coverage/
+playwright-report/
+test-results/
+
+# vite cache
+.vite/
+
+# temporary files
+*.tmp
+*.temp
 
 
 # environment variables
