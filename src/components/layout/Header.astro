@@ -29,14 +29,26 @@ const isActiveUrl = (url: string): boolean => {
 
 <nav
   class="glass-nav fixed top-0 z-50 w-full bg-[#f1fbff]/80 shadow-[0_32px_32px_-4px_rgba(232,74,95,0.06)] dark:bg-slate-900/80"
+  transition:name="site-header"
+  data-mobile-nav-root
+  data-mobile-nav-open="false"
 >
-  <div class="vt-shell flex items-center justify-between px-2 py-5 sm:px-6">
-    <div class="flex items-center md:w-[8.5rem] md:flex-none">
-      <a href="/" class="text-primary">
-        <Logo class="h-7 w-auto sm:h-8" aria-label={t.logoAria} role="img" />
+  <div
+    class="vt-shell flex items-center justify-between px-3 py-4 sm:px-6 sm:py-5"
+  >
+    <div class="flex flex-none items-center">
+      <a href="/" class="text-primary" transition:name="site-logo">
+        <Logo
+          class="vt-site-logo h-6 w-auto sm:h-7 md:h-8"
+          aria-label={t.logoAria}
+          role="img"
+        />
       </a>
     </div>
-    <div class="hidden items-center gap-8 md:flex">
+    <div
+      class="hidden flex-1 items-center justify-end gap-8 md:flex"
+      transition:name="site-nav"
+    >
       {
         menuItems.map((item) => (
           <a
@@ -49,8 +61,108 @@ const isActiveUrl = (url: string): boolean => {
         ))
       }
     </div>
-    <div class="flex items-center justify-end gap-3 md:w-[8.5rem] md:flex-none">
+    <div
+      class="flex flex-none items-center justify-end gap-1 md:ml-6"
+      transition:name="site-theme-toggle"
+    >
       <ThemeToggle />
+      <button
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--bg-panel)] text-[var(--ink)] shadow-[0_16px_24px_-20px_rgba(0,0,0,.45)] md:hidden"
+        data-mobile-nav-toggle
+        aria-expanded="false"
+        aria-label="Abrir menu"
+      >
+        <span class="material-symbols-outlined" data-mobile-nav-icon>menu</span>
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="vt-mobile-nav-panel md:hidden"
+    data-mobile-nav-panel
+    data-open="false"
+  >
+    <div
+      class="vt-shell flex min-h-full items-center justify-center px-6 py-2 overflow-y-auto"
+    >
+      <div class="flex flex-col items-center gap-5 text-center">
+        {
+          menuItems.map((item) => (
+            <a
+              class="vt-mobile-nav-link font-headline text-3xl font-medium tracking-tight text-slate-700 dark:text-slate-200"
+              href={item.url}
+              aria-current={isActiveUrl(item.url) ? 'page' : undefined}
+            >
+              {t.menu[item.id]}
+            </a>
+          ))
+        }
+      </div>
     </div>
   </div>
 </nav>
+
+<script is:inline>
+  ;(() => {
+    const root = document.querySelector('[data-mobile-nav-root]')
+    const toggle = root?.querySelector('[data-mobile-nav-toggle]')
+    const icon = root?.querySelector('[data-mobile-nav-icon]')
+    const panel = root?.querySelector('[data-mobile-nav-panel]')
+    const pageContent = document.querySelector('[data-page-content]')
+
+    if (
+      !(root instanceof HTMLElement) ||
+      !(toggle instanceof HTMLButtonElement) ||
+      !(icon instanceof HTMLElement) ||
+      !(panel instanceof HTMLElement)
+    ) {
+      return
+    }
+
+    let open = false
+
+    const sync = () => {
+      root.dataset.mobileNavOpen = open ? 'true' : 'false'
+      panel.dataset.open = open ? 'true' : 'false'
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false')
+      icon.textContent = open ? 'close' : 'menu'
+      pageContent?.setAttribute('data-overlay-blocked', open ? 'true' : 'false')
+    }
+
+    const close = () => {
+      open = false
+      sync()
+    }
+
+    const toggleMenu = () => {
+      open = !open
+      sync()
+    }
+
+    toggle.addEventListener('click', (event) => {
+      event.stopPropagation()
+      toggleMenu()
+    })
+
+    panel.addEventListener('click', (event) => {
+      if (event.target === panel) {
+        close()
+      }
+    })
+
+    panel.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        close()
+      })
+    })
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        close()
+      }
+    })
+
+    sync()
+  })()
+</script>

@@ -45,11 +45,11 @@ const formatDate = (value: number | null): string => {
     searchPlaceholder={t.searchPlaceholder}
     filters={filterOptions}
     activeFilterId='all'
-    chipsMode='scroll'
     eventName='vt:videos-filters-change'
+    transitionName='page-floating-header'
   />
 
-  <div class='mt-8 grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-4' data-videos-list>
+  <div class='mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' data-videos-list>
     {
       videos.map((video) => (
         <article

@@ -11,10 +11,10 @@ type Props = {
   filters?: FilterOption[]
   activeFilterId?: string
   searchValue?: string
-  chipsMode?: 'scroll' | 'wrap'
   threshold?: number
   eventName?: string
   showControls?: boolean
+  transitionName?: string
 }
 
 const {
@@ -24,10 +24,10 @@ const {
   filters = [],
   activeFilterId = '',
   searchValue = '',
-  chipsMode = 'scroll',
   threshold = 0,
   eventName,
   showControls = true,
+  transitionName,
 } = Astro.props
 
 const escapeHtml = (value: string): string =>
@@ -45,11 +45,6 @@ const renderMarkdownInline = (value: string): string =>
   )
 
 const titleHtml = renderMarkdownInline(title)
-const chipsWrapClass = chipsMode === 'scroll' ? 'vt-filter-scroll-wrap' : ''
-const chipsClass =
-  chipsMode === 'scroll'
-    ? 'vt-filter-scroll flex items-center gap-2 overflow-x-auto pr-8'
-    : 'flex flex-wrap items-center gap-2'
 ---
 
 <div
@@ -64,6 +59,7 @@ const chipsClass =
       data-has-controls={showControls ? 'true' : 'false'}
       data-scrolled="false"
       class="vt-sticky-shell"
+      transition:name={transitionName}
     >
       <div class="space-y-5">
         <div class="vt-sticky-heading">
@@ -82,15 +78,27 @@ const chipsClass =
 
         {
           showControls ? (
-            <div class="vt-sticky-controls flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-              <div class="flex min-w-0 items-center gap-3">
+            <div class="vt-sticky-controls" data-controls-expanded="false">
+              <div class="vt-sticky-controls-top flex items-center gap-3">
                 <h2
                   class="vt-sticky-compact-title font-headline tracking-tight text-ink"
                   set:html={titleHtml}
                 />
 
-                <div class={chipsWrapClass}>
-                  <div class={chipsClass} data-sticky-filter-list>
+                <button
+                  type="button"
+                  class="vt-sticky-controls-toggle ml-auto inline-flex items-center gap-2 rounded-full bg-[var(--bg-panel)] px-4 font-headline text-sm font-bold text-ink shadow-[0_16px_24px_-20px_rgba(0,0,0,.45)] lg:hidden"
+                  data-sticky-controls-toggle
+                  aria-expanded="false"
+                >
+                  <span>Filtros</span>
+                  <span class="material-symbols-outlined text-[1.1rem]" data-sticky-controls-icon>tune</span>
+                </button>
+              </div>
+
+              <div class="vt-sticky-controls-panel">
+                <div class="vt-filter-scroll-wrap">
+                  <div class="vt-filter-list" data-sticky-filter-list>
                     {filters.map((filter) => {
                       const active = filter.id === activeFilterId
 
@@ -111,19 +119,19 @@ const chipsClass =
                     })}
                   </div>
                 </div>
-              </div>
 
-              <div class="relative w-full max-w-[320px] lg:ml-auto">
-                <span class="material-symbols-outlined pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-ink-soft">
-                  search
-                </span>
-                <input
-                  data-sticky-search
-                  type="search"
-                  value={searchValue}
-                  placeholder={searchPlaceholder}
-                  class="vt-filter-input w-full rounded-full bg-[var(--bg-panel)] pr-5 pl-12 text-ink placeholder:text-ink-soft focus:ring-2 focus:ring-primary/20 focus:outline-none"
-                />
+                <div class="relative w-full lg:ml-auto lg:max-w-[320px]">
+                  <span class="material-symbols-outlined pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-ink-soft">
+                    search
+                  </span>
+                  <input
+                    data-sticky-search
+                    type="search"
+                    value={searchValue}
+                    placeholder={searchPlaceholder}
+                    class="vt-filter-input w-full rounded-full bg-[var(--bg-panel)] pr-5 pl-12 text-ink placeholder:text-ink-soft focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                  />
+                </div>
               </div>
             </div>
           ) : (
@@ -145,6 +153,14 @@ const chipsClass =
     aria-hidden="true"
   >
   </div>
+
+  <button
+    type="button"
+    class="vt-sticky-mobile-overlay"
+    data-sticky-mobile-overlay
+    aria-hidden="true"
+    tabindex="-1"
+  ></button>
 </div>
 
 <script is:inline>
@@ -159,12 +175,14 @@ const chipsClass =
       '[data-sticky-base] [data-sticky-shell]',
     )
     const floatingSlot = host.querySelector('[data-sticky-floating-slot]')
+    const overlay = host.querySelector('[data-sticky-mobile-overlay]')
     const eventName = host.dataset.stickyEvent
 
     if (
       !(base instanceof HTMLElement) ||
       !(baseShell instanceof HTMLElement) ||
-      !(floatingSlot instanceof HTMLElement)
+      !(floatingSlot instanceof HTMLElement) ||
+      !(overlay instanceof HTMLButtonElement)
     ) {
       return
     }
@@ -181,8 +199,12 @@ const chipsClass =
 
     const configuredThreshold = Number(host.dataset.stickyThreshold || '0')
     const hasControls = floating.dataset.hasControls === 'true'
+    const controls = floating.querySelector('.vt-sticky-controls')
+    const controlsToggle = floating.querySelector('[data-sticky-controls-toggle]')
+    const controlsIcon = floating.querySelector('[data-sticky-controls-icon]')
     const buttons = Array.from(floating.querySelectorAll('[data-filter-id]'))
     const search = floating.querySelector('[data-sticky-search]')
+    const pageContent = document.querySelector('[data-page-content]')
 
     if (
       hasControls &&
@@ -199,6 +221,30 @@ const chipsClass =
       ''
     let stickyTicking = false
     let stickyStart = 0
+    let mobileExpanded = false
+
+    const syncControlsState = () => {
+      if (!(controls instanceof HTMLElement)) {
+        return
+      }
+
+      const narrow = window.innerWidth < 1024
+      const expanded = !narrow || mobileExpanded
+      controls.dataset.controlsExpanded = expanded ? 'true' : 'false'
+      overlay.dataset.visible = narrow && mobileExpanded ? 'true' : 'false'
+      pageContent?.setAttribute(
+        'data-overlay-blocked',
+        narrow && mobileExpanded ? 'true' : 'false',
+      )
+
+      if (controlsToggle instanceof HTMLButtonElement) {
+        controlsToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false')
+      }
+
+      if (controlsIcon instanceof HTMLElement) {
+        controlsIcon.textContent = narrow && mobileExpanded ? 'close' : 'tune'
+      }
+    }
 
     const syncFloatingGeometry = () => {
       const rect = base.getBoundingClientRect()
@@ -277,8 +323,16 @@ const chipsClass =
 
     const resizeObserver = new ResizeObserver(() => {
       updateBaseHeight()
+      syncControlsState()
       syncSticky()
     })
+
+    const closeMobileFilters = () => {
+      mobileExpanded = false
+      syncControlsState()
+      updateBaseHeight()
+      syncSticky()
+    }
 
     resizeObserver.observe(document.body)
     resizeObserver.observe(base)
@@ -294,6 +348,17 @@ const chipsClass =
       })
 
       search.addEventListener('input', emitChange)
+
+      if (controlsToggle instanceof HTMLButtonElement) {
+        controlsToggle.addEventListener('click', () => {
+          mobileExpanded = !mobileExpanded
+          syncControlsState()
+          updateBaseHeight()
+          syncSticky()
+        })
+      }
+
+      overlay.addEventListener('click', closeMobileFilters)
     }
 
     if (hasControls) {
@@ -320,10 +385,17 @@ const chipsClass =
 
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024) {
+        closeMobileFilters()
+        return
+      }
+
       updateBaseHeight()
+      syncControlsState()
       syncSticky()
     })
 
+    syncControlsState()
     updateBaseHeight()
     syncButtons()
     syncSticky()
