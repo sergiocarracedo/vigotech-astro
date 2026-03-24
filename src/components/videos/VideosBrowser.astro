@@ -3,7 +3,7 @@ import type { CollectionEntry } from 'astro:content'
 
 import { LANG, LOCALE } from '../../i18n/config'
 import { videosBrowserT } from '../../i18n/videos-browser'
-import StickyFilters from '../ui/StickyFilters.astro'
+import FloatingHeader from '../ui/FloatingHeader.astro'
 import GroupLogo from '../ui/GroupLogo.astro'
 
 type Props = {
@@ -39,7 +39,7 @@ const formatDate = (value: number | null): string => {
 ---
 
 <section class='vt-content-shell mt-6 px-2 pb-16 sm:px-6'>
-  <StickyFilters
+  <FloatingHeader
     eyebrow={t.eyebrow}
     title={t.heading}
     searchPlaceholder={t.searchPlaceholder}

@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content'
 
 import { LANG } from '../i18n/config'
 import { docPageT } from '../i18n/doc-page'
-import StickyFilters from '../components/ui/StickyFilters.astro'
+import FloatingHeader from '../components/ui/FloatingHeader.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 
 const t = docPageT[LANG]
@@ -23,7 +23,7 @@ const lead = t.leads[doc.data.slug as keyof typeof t.leads] ?? t.leads.default
 
 <BaseLayout title={`${doc.data.title} | VigoTech`} description={doc.data.title}>
   <article class="doc-page mx-auto mt-4 w-full max-w-2xl px-6 pb-20 sm:mt-10">
-    <StickyFilters
+    <FloatingHeader
       eyebrow={lead.badge}
       title={doc.data.title}
       showControls={false}

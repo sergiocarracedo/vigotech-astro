@@ -75,52 +75,46 @@ const chipsClass =
             )
           }
           <h1
-            class="mt-2 font-headline text-4xl tracking-tight text-[var(--ink)] sm:text-5xl"
+            class="mt-2 font-headline text-4xl tracking-tight text-ink sm:text-5xl"
             set:html={titleHtml}
           />
         </div>
 
         {
           showControls ? (
-            <div
-              class="vt-sticky-controls flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"
-            >
+            <div class="vt-sticky-controls flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div class="flex min-w-0 items-center gap-3">
                 <h2
-                  class="vt-sticky-compact-title font-headline tracking-tight text-[var(--ink)]"
+                  class="vt-sticky-compact-title font-headline tracking-tight text-ink"
                   set:html={titleHtml}
                 />
 
                 <div class={chipsWrapClass}>
                   <div class={chipsClass} data-sticky-filter-list>
-                    {
-                      filters.map((filter) => {
-                        const active = filter.id === activeFilterId
+                    {filters.map((filter) => {
+                      const active = filter.id === activeFilterId
 
-                        return (
-                          <button
-                            class={`vt-filter-chip cursor-pointer rounded-full px-4 font-headline text-sm font-bold whitespace-nowrap ${
-                              active
-                                ? 'bg-primary text-white shadow-lg shadow-primary/20'
-                                : 'bg-[var(--bg-panel)] text-[var(--ink-soft)]'
-                            }`}
-                            data-filter-id={filter.id}
-                            data-active={active ? 'true' : 'false'}
-                            type="button"
-                          >
-                            {filter.label}
-                          </button>
-                        )
-                      })
-                    }
+                      return (
+                        <button
+                          class={`vt-filter-chip cursor-pointer rounded-full px-4 font-headline text-sm font-bold whitespace-nowrap ${
+                            active
+                              ? 'bg-primary text-white shadow-lg shadow-primary/20'
+                              : 'bg-[var(--bg-panel)] text-ink-soft'
+                          }`}
+                          data-filter-id={filter.id}
+                          data-active={active ? 'true' : 'false'}
+                          type="button"
+                        >
+                          {filter.label}
+                        </button>
+                      )
+                    })}
                   </div>
                 </div>
               </div>
 
               <div class="relative w-full max-w-[320px] lg:ml-auto">
-                <span
-                  class="material-symbols-outlined pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-[var(--ink-soft)]"
-                >
+                <span class="material-symbols-outlined pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-ink-soft">
                   search
                 </span>
                 <input
@@ -128,14 +122,14 @@ const chipsClass =
                   type="search"
                   value={searchValue}
                   placeholder={searchPlaceholder}
-                  class="vt-filter-input w-full rounded-full bg-[var(--bg-panel)] pr-5 pl-12 text-[var(--ink)] placeholder:text-[var(--ink-soft)] focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                  class="vt-filter-input w-full rounded-full bg-[var(--bg-panel)] pr-5 pl-12 text-ink placeholder:text-ink-soft focus:ring-2 focus:ring-primary/20 focus:outline-none"
                 />
               </div>
             </div>
           ) : (
             <div class="vt-sticky-title-bar">
               <h2
-                class="vt-sticky-compact-title font-headline tracking-tight text-[var(--ink)]"
+                class="vt-sticky-compact-title font-headline tracking-tight text-ink"
                 set:html={titleHtml}
               />
             </div>
@@ -145,7 +139,12 @@ const chipsClass =
     </div>
   </div>
 
-  <div data-sticky-floating-slot class="vt-sticky-floating-slot" aria-hidden="true"></div>
+  <div
+    data-sticky-floating-slot
+    class="vt-sticky-floating-slot"
+    aria-hidden="true"
+  >
+  </div>
 </div>
 
 <script is:inline>
@@ -156,7 +155,9 @@ const chipsClass =
     }
 
     const base = host.querySelector('[data-sticky-base]')
-    const baseShell = host.querySelector('[data-sticky-base] [data-sticky-shell]')
+    const baseShell = host.querySelector(
+      '[data-sticky-base] [data-sticky-shell]',
+    )
     const floatingSlot = host.querySelector('[data-sticky-floating-slot]')
     const eventName = host.dataset.stickyEvent
 
@@ -183,12 +184,17 @@ const chipsClass =
     const buttons = Array.from(floating.querySelectorAll('[data-filter-id]'))
     const search = floating.querySelector('[data-sticky-search]')
 
-    if (hasControls && (!(search instanceof HTMLInputElement) || buttons.length === 0)) {
+    if (
+      hasControls &&
+      (!(search instanceof HTMLInputElement) || buttons.length === 0)
+    ) {
       return
     }
 
     let activeFilterId =
-      buttons.find((button) => button.getAttribute('data-active') === 'true')?.getAttribute('data-filter-id') ||
+      buttons
+        .find((button) => button.getAttribute('data-active') === 'true')
+        ?.getAttribute('data-filter-id') ||
       buttons[0]?.getAttribute('data-filter-id') ||
       ''
     let stickyTicking = false
@@ -202,7 +208,9 @@ const chipsClass =
 
     const updateBaseHeight = () => {
       const height = Math.round(baseShell.getBoundingClientRect().height)
-      stickyStart = Math.round(base.getBoundingClientRect().top + window.scrollY)
+      stickyStart = Math.round(
+        base.getBoundingClientRect().top + window.scrollY,
+      )
       base.style.height = `${height}px`
       syncFloatingGeometry()
     }
@@ -213,7 +221,8 @@ const chipsClass =
       }
 
       buttons.forEach((button) => {
-        const selected = button.getAttribute('data-filter-id') === activeFilterId
+        const selected =
+          button.getAttribute('data-filter-id') === activeFilterId
         button.setAttribute('data-active', selected ? 'true' : 'false')
         button.classList.toggle('bg-primary', selected)
         button.classList.toggle('text-white', selected)
@@ -236,7 +245,8 @@ const chipsClass =
           bubbles: true,
           detail: {
             activeFilterId,
-            searchValue: search instanceof HTMLInputElement ? search.value.trim() : '',
+            searchValue:
+              search instanceof HTMLInputElement ? search.value.trim() : '',
           },
         }),
       )
@@ -277,7 +287,8 @@ const chipsClass =
     if (hasControls) {
       buttons.forEach((button) => {
         button.addEventListener('click', () => {
-          activeFilterId = button.getAttribute('data-filter-id') || activeFilterId
+          activeFilterId =
+            button.getAttribute('data-filter-id') || activeFilterId
           emitChange()
         })
       })
@@ -289,11 +300,17 @@ const chipsClass =
       host.addEventListener('vt:sticky-filters-sync', (event) => {
         const detail = event.detail || {}
 
-        if (typeof detail.activeFilterId === 'string' && detail.activeFilterId.length > 0) {
+        if (
+          typeof detail.activeFilterId === 'string' &&
+          detail.activeFilterId.length > 0
+        ) {
           activeFilterId = detail.activeFilterId
         }
 
-        if (typeof detail.searchValue === 'string' && search instanceof HTMLInputElement) {
+        if (
+          typeof detail.searchValue === 'string' &&
+          search instanceof HTMLInputElement
+        ) {
           search.value = detail.searchValue
         }
 

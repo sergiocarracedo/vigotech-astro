@@ -31,9 +31,11 @@ const isActiveUrl = (url: string): boolean => {
   class="glass-nav fixed top-0 z-50 w-full bg-[#f1fbff]/80 shadow-[0_32px_32px_-4px_rgba(232,74,95,0.06)] dark:bg-slate-900/80"
 >
   <div class="vt-shell flex items-center justify-between px-2 py-5 sm:px-6">
-    <a href="/" class="text-primary">
-      <Logo class="h-7 w-auto sm:h-8" aria-label={t.logoAria} role="img" />
-    </a>
+    <div class="flex items-center md:w-[8.5rem] md:flex-none">
+      <a href="/" class="text-primary">
+        <Logo class="h-7 w-auto sm:h-8" aria-label={t.logoAria} role="img" />
+      </a>
+    </div>
     <div class="hidden items-center gap-8 md:flex">
       {
         menuItems.map((item) => (
@@ -47,7 +49,7 @@ const isActiveUrl = (url: string): boolean => {
         ))
       }
     </div>
-    <div class="flex items-center gap-3">
+    <div class="flex items-center justify-end gap-3 md:w-[8.5rem] md:flex-none">
       <ThemeToggle />
     </div>
   </div>

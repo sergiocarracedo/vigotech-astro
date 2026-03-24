@@ -281,10 +281,6 @@ h6 {
   display: none;
 }
 
-.vt-sticky-shell[data-has-controls='false'][data-scrolled='true'] .vt-sticky-heading {
-  display: block;
-}
-
 .vt-sticky-shell[data-scrolled='true'] .vt-sticky-compact-title {
   display: block;
   font-size: clamp(1.3rem, 2.2vw, 1.85rem);
@@ -297,8 +293,8 @@ h6 {
   display: none;
 }
 
-.vt-sticky-shell[data-has-controls='false'] .vt-sticky-title-bar {
-  display: none;
+.vt-sticky-shell[data-has-controls='false'][data-scrolled='true'] .vt-sticky-title-bar {
+  display: block;
 }
 
 .vt-sticky-heading em,
