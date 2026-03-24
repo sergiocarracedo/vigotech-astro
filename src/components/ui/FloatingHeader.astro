@@ -309,7 +309,7 @@ const titleHtml = renderMarkdownInline(title)
     }
 
     const syncSticky = () => {
-      const stickyTop = 96
+      const stickyTop = window.innerWidth < 640 ? 86 : 96
       const scrolled =
         configuredThreshold > 0
           ? window.scrollY > configuredThreshold
