@@ -29,7 +29,6 @@ const isActiveUrl = (url: string): boolean => {
 
 <nav
   class="glass-nav fixed top-0 z-50 w-full bg-[#f1fbff]/80 shadow-[0_32px_32px_-4px_rgba(232,74,95,0.06)] dark:bg-slate-900/80"
-  transition:name="site-header"
   data-mobile-nav-root
   data-mobile-nav-open="false"
 >
@@ -37,7 +36,7 @@ const isActiveUrl = (url: string): boolean => {
     class="vt-shell flex items-center justify-between px-3 py-4 sm:px-6 sm:py-5"
   >
     <div class="flex flex-none items-center">
-      <a href="/" class="text-primary" transition:name="site-logo">
+      <a href="/" class="text-primary">
         <Logo
           class="vt-site-logo h-6 w-auto sm:h-7 md:h-8"
           aria-label={t.logoAria}
@@ -45,10 +44,7 @@ const isActiveUrl = (url: string): boolean => {
         />
       </a>
     </div>
-    <div
-      class="hidden flex-1 items-center justify-end gap-8 md:flex"
-      transition:name="site-nav"
-    >
+    <div class="hidden flex-1 items-center justify-end gap-8 md:flex">
       {
         menuItems.map((item) => (
           <a
@@ -61,10 +57,7 @@ const isActiveUrl = (url: string): boolean => {
         ))
       }
     </div>
-    <div
-      class="flex flex-none items-center justify-end gap-1 md:ml-6"
-      transition:name="site-theme-toggle"
-    >
+    <div class="flex flex-none items-center justify-end gap-1 md:ml-6">
       <ThemeToggle />
       <button
         type="button"
@@ -174,6 +167,5 @@ const isActiveUrl = (url: string): boolean => {
     }
 
     setup()
-    document.addEventListener('astro:after-swap', setup)
   })()
 </script>

@@ -9,5 +9,8 @@ export default defineConfig({
   integrations: [icon()],
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: ['shaders/core'],
+    },
   },
 })

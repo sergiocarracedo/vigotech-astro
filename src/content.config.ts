@@ -1,4 +1,5 @@
-import { defineCollection, z } from 'astro:content'
+import { z } from 'astro/zod'
+import { defineCollection } from 'astro:content'
 
 import { documentSources } from './lib/vigotech/documents'
 import { loadVigotechSources, slugify, toLocalGroupLogo } from './lib/vigotech/source'
@@ -180,7 +181,7 @@ const events = defineCollection({
           date: fakeDate,
           dateISO: new Date(fakeDate).toISOString(),
           location: 'Vigo / Galicia',
-          link: null,
+          link: `https://example.com/events/${slugify(groupName)}-${index + 1}`,
         })
       }
     }

@@ -1,6 +1,4 @@
 ---
-import { ClientRouter } from 'astro:transitions'
-
 import ThemeScript from '../components/theme/ThemeScript.astro'
 import Footer from '../components/layout/Footer.astro'
 import Header from '../components/layout/Header.astro'
@@ -42,7 +40,6 @@ const {
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
     />
-    <ClientRouter />
     <ThemeScript />
   </head>
   <body class="bg-[var(--bg)] text-[var(--ink)]">
@@ -97,7 +94,6 @@ const {
         }
 
         setup()
-        document.addEventListener('astro:after-swap', setup)
       })()
     </script>
   </body>

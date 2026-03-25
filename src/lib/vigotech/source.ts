@@ -7,8 +7,7 @@ type Json = Record<string, unknown>
 const localConfigDataDir =
   process.env.VIGOTECH_CONFIG_DATA_DIR ?? fileURLToPath(new URL('../../../public', import.meta.url))
 
-const generatedDataDir =
-  process.env.VIGOTECH_GENERATED_DATA_DIR ?? '/works/vigotech/vigotech.github.io/static'
+const generatedDataDir = process.env.VIGOTECH_GENERATED_DATA_DIR ?? localConfigDataDir
 
 const readJson = async <T>(fileName: string, fallback: T, dataDir: string): Promise<T> => {
   try {

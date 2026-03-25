@@ -9,18 +9,20 @@ This project is the Astro migration of the VigoTech website.
 | `pnpm install`          | Install dependencies                     |
 | `pnpm dev`              | Start local dev server                   |
 | `pnpm dev --mockEvents` | Start dev with synthetic upcoming events |
+| `pnpm generate:data`    | Refresh `public/vigotech-generated.json` |
 | `pnpm check`            | Run Astro checks                         |
 | `pnpm build`            | Type-check and build static site         |
 
 ## Data source
 
-By default, the site reads source files from:
+By default, the site reads source files from `public/`:
 
-- `/works/vigotech/vigotech.github.io/static/vigotech.json`
-- `/works/vigotech/vigotech.github.io/static/vigotech-generated.json`
-- `/works/vigotech/vigotech.github.io/static/friends.json`
+- `public/vigotech.json`
+- `public/vigotech-generated.json`
+- `public/friends.json`
 
-Override path with `VIGOTECH_DATA_DIR` if needed.
+Run `pnpm generate:data` to rebuild `public/vigotech-generated.json` from
+`public/vigotech.json` using the legacy VigoTech source fetchers.
 
 ## Environment variables
 
@@ -35,8 +37,16 @@ Override path with `VIGOTECH_DATA_DIR` if needed.
 
 - `VIGOTECH_GENERATED_DATA_DIR`
   - Optional override for generated JSON directory.
-  - Default: `/works/vigotech/vigotech.github.io/static`.
+  - Default: `public`.
   - Used only for `vigotech-generated.json`.
+
+- `EVENTBRITE_OAUTH_TOKEN`
+  - Optional token used while generating upcoming events from Eventbrite.
+  - Used by `pnpm generate:data` and the Pages workflow.
+
+- `YOUTUBE_API_KEY`
+  - Optional API key used while generating `videoList` entries from YouTube.
+  - Used by `pnpm generate:data` and the Pages workflow.
 
 - `GOOGLE_CALENDAR_API_KEY`
   - Used by `/api/calendar.json` to fetch events from VigoTech public Google Calendar.
