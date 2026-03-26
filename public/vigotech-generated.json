@@ -34,7 +34,8 @@
         "url": "https://www.meetup.com/luxembourg-vibe-coding-meetup-group/events/313651478/",
         "location": "Online event"
       },
-      "videoList": []
+      "videoList": [],
+      "eventList": []
     },
     "aindustriosa": {
       "name": "A Industriosa",
@@ -1186,7 +1187,8 @@
             }
           }
         }
-      ]
+      ],
+      "eventList": []
     },
     "blockchaingal": {
       "name": "Blockchain.gal Vigo",
@@ -1203,7 +1205,8 @@
       },
       "inactive": true,
       "nextEvent": null,
-      "videoList": []
+      "videoList": [],
+      "eventList": []
     },
     "craftersvigo": {
       "name": "Crafters Vigo",
@@ -1217,7 +1220,8 @@
         "meetupid": "craftersvigo"
       },
       "nextEvent": null,
-      "videoList": []
+      "videoList": [],
+      "eventList": []
     },
     "galpon": {
       "name": "GALPon",
@@ -1228,7 +1232,8 @@
         "maillist": "https://www.galpon.org/content/listas-correo-galpon"
       },
       "nextEvent": null,
-      "videoList": []
+      "videoList": [],
+      "eventList": []
     },
     "galstech": {
       "name": "GalsTech",
@@ -1243,7 +1248,8 @@
       },
       "inactive": true,
       "nextEvent": null,
-      "videoList": []
+      "videoList": [],
+      "eventList": []
     },
     "gdgvigo": {
       "name": "GDG Vigo",
@@ -1337,7 +1343,8 @@
             }
           }
         }
-      ]
+      ],
+      "eventList": []
     },
     "joomlavigo": {
       "name": "Grupo de Usuarios de Joomla de Vigo",
@@ -1348,7 +1355,8 @@
         "facebook": "https://www.facebook.com/JoomlaVigo/"
       },
       "nextEvent": null,
-      "videoList": []
+      "videoList": [],
+      "eventList": []
     },
     "phpvigo": {
       "name": "PHPVigo",
@@ -2536,7 +2544,8 @@
             }
           }
         }
-      ]
+      ],
+      "eventList": []
     },
     "pythonvigo": {
       "name": "PythonVigo",
@@ -3637,7 +3646,8 @@
             }
           }
         }
-      ]
+      ],
+      "eventList": []
     },
     "seogalicia": {
       "name": "Seo Galicia",
@@ -3653,7 +3663,8 @@
       },
       "inactive": true,
       "nextEvent": null,
-      "videoList": []
+      "videoList": [],
+      "eventList": []
     },
     "sysadmingalicia": {
       "name": "SysAdmin Galicia",
@@ -3674,7 +3685,8 @@
       ],
       "inactive": true,
       "nextEvent": null,
-      "videoList": []
+      "videoList": [],
+      "eventList": []
     },
     "uxgalicia": {
       "name": "UX Galicia",
@@ -3690,7 +3702,8 @@
       },
       "inactive": true,
       "nextEvent": null,
-      "videoList": []
+      "videoList": [],
+      "eventList": []
     },
     "vigoadg": {
       "name": "Vigo Android Developer Group",
@@ -3705,7 +3718,8 @@
       },
       "inactive": true,
       "nextEvent": null,
-      "videoList": []
+      "videoList": [],
+      "eventList": []
     },
     "vigojug": {
       "name": "VigoJUG",
@@ -3737,190 +3751,6 @@
       "inactive": true,
       "nextEvent": null,
       "videoList": [
-        {
-          "player": "youtube",
-          "id": "Se0Ov3V11MM",
-          "title": "O sétimo meetup do VigoJUG: Desarrollo de microservicios con Spring Boot",
-          "pubDate": 1513409471000,
-          "thumbnails": {
-            "default": {
-              "url": "https://i.ytimg.com/vi/Se0Ov3V11MM/default.jpg",
-              "width": 120,
-              "height": 90
-            },
-            "medium": {
-              "url": "https://i.ytimg.com/vi/Se0Ov3V11MM/mqdefault.jpg",
-              "width": 320,
-              "height": 180
-            },
-            "high": {
-              "url": "https://i.ytimg.com/vi/Se0Ov3V11MM/hqdefault.jpg",
-              "width": 480,
-              "height": 360
-            }
-          }
-        },
-        {
-          "player": "youtube",
-          "id": "fX1fzZPHaVU",
-          "title": "O sexto meetup do VigoJUG: \"In-Memory Datagrid en arquitecturas de tiempo real\"",
-          "pubDate": 1507057333000,
-          "thumbnails": {
-            "default": {
-              "url": "https://i.ytimg.com/vi/fX1fzZPHaVU/default.jpg",
-              "width": 120,
-              "height": 90
-            },
-            "medium": {
-              "url": "https://i.ytimg.com/vi/fX1fzZPHaVU/mqdefault.jpg",
-              "width": 320,
-              "height": 180
-            },
-            "high": {
-              "url": "https://i.ytimg.com/vi/fX1fzZPHaVU/hqdefault.jpg",
-              "width": 480,
-              "height": 360
-            }
-          }
-        },
-        {
-          "player": "youtube",
-          "id": "8643WerUG-s",
-          "title": "O cuarto meetup do VigoJUG: Kotlin, o Java para o século XXI",
-          "pubDate": 1507016769000,
-          "thumbnails": {
-            "default": {
-              "url": "https://i.ytimg.com/vi/8643WerUG-s/default.jpg",
-              "width": 120,
-              "height": 90
-            },
-            "medium": {
-              "url": "https://i.ytimg.com/vi/8643WerUG-s/mqdefault.jpg",
-              "width": 320,
-              "height": 180
-            },
-            "high": {
-              "url": "https://i.ytimg.com/vi/8643WerUG-s/hqdefault.jpg",
-              "width": 480,
-              "height": 360
-            }
-          }
-        },
-        {
-          "player": "youtube",
-          "id": "4yvSSZMHTZo",
-          "title": "Reactive programming con RxJava",
-          "pubDate": 1493755039000,
-          "thumbnails": {
-            "default": {
-              "url": "https://i.ytimg.com/vi/4yvSSZMHTZo/default.jpg",
-              "width": 120,
-              "height": 90
-            },
-            "medium": {
-              "url": "https://i.ytimg.com/vi/4yvSSZMHTZo/mqdefault.jpg",
-              "width": 320,
-              "height": 180
-            },
-            "high": {
-              "url": "https://i.ytimg.com/vi/4yvSSZMHTZo/hqdefault.jpg",
-              "width": 480,
-              "height": 360
-            }
-          }
-        },
-        {
-          "player": "youtube",
-          "id": "KHdVe9fOa-U",
-          "title": "Introducción de Cassandra con Java",
-          "pubDate": 1493754951000,
-          "thumbnails": {
-            "default": {
-              "url": "https://i.ytimg.com/vi/KHdVe9fOa-U/default.jpg",
-              "width": 120,
-              "height": 90
-            },
-            "medium": {
-              "url": "https://i.ytimg.com/vi/KHdVe9fOa-U/mqdefault.jpg",
-              "width": 320,
-              "height": 180
-            },
-            "high": {
-              "url": "https://i.ytimg.com/vi/KHdVe9fOa-U/hqdefault.jpg",
-              "width": 480,
-              "height": 360
-            }
-          }
-        },
-        {
-          "player": "youtube",
-          "id": "pLsC3jnbX5o",
-          "title": "Emisión en directo de Vigo JUG",
-          "pubDate": 1490819092000,
-          "thumbnails": {
-            "default": {
-              "url": "https://i.ytimg.com/vi/pLsC3jnbX5o/default.jpg",
-              "width": 120,
-              "height": 90
-            },
-            "medium": {
-              "url": "https://i.ytimg.com/vi/pLsC3jnbX5o/mqdefault.jpg",
-              "width": 320,
-              "height": 180
-            },
-            "high": {
-              "url": "https://i.ytimg.com/vi/pLsC3jnbX5o/hqdefault.jpg",
-              "width": 480,
-              "height": 360
-            }
-          }
-        },
-        {
-          "player": "youtube",
-          "id": "smG2P6Esvnc",
-          "title": "\"De Groovy... e Sancho Panza\" por Antón Rodríguez de Optare Solutions 30 min.",
-          "pubDate": 1490818577000,
-          "thumbnails": {
-            "default": {
-              "url": "https://i.ytimg.com/vi/smG2P6Esvnc/default.jpg",
-              "width": 120,
-              "height": 90
-            },
-            "medium": {
-              "url": "https://i.ytimg.com/vi/smG2P6Esvnc/mqdefault.jpg",
-              "width": 320,
-              "height": 180
-            },
-            "high": {
-              "url": "https://i.ytimg.com/vi/smG2P6Esvnc/hqdefault.jpg",
-              "width": 480,
-              "height": 360
-            }
-          }
-        },
-        {
-          "player": "youtube",
-          "id": "PKqTlj38X7M",
-          "title": "Make Java Great Again! por @tomasalmeida de Netcentric. 30 min.",
-          "pubDate": 1490818476000,
-          "thumbnails": {
-            "default": {
-              "url": "https://i.ytimg.com/vi/PKqTlj38X7M/default.jpg",
-              "width": 120,
-              "height": 90
-            },
-            "medium": {
-              "url": "https://i.ytimg.com/vi/PKqTlj38X7M/mqdefault.jpg",
-              "width": 320,
-              "height": 180
-            },
-            "high": {
-              "url": "https://i.ytimg.com/vi/PKqTlj38X7M/hqdefault.jpg",
-              "width": 480,
-              "height": 360
-            }
-          }
-        },
         {
           "player": "youtube",
           "id": "XE4q7OCBXy8",
@@ -4261,6 +4091,190 @@
             },
             "high": {
               "url": "https://i.ytimg.com/vi/km9YiCqhtps/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+            }
+          }
+        },
+        {
+          "player": "youtube",
+          "id": "Se0Ov3V11MM",
+          "title": "O sétimo meetup do VigoJUG: Desarrollo de microservicios con Spring Boot",
+          "pubDate": 1513409471000,
+          "thumbnails": {
+            "default": {
+              "url": "https://i.ytimg.com/vi/Se0Ov3V11MM/default.jpg",
+              "width": 120,
+              "height": 90
+            },
+            "medium": {
+              "url": "https://i.ytimg.com/vi/Se0Ov3V11MM/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+            },
+            "high": {
+              "url": "https://i.ytimg.com/vi/Se0Ov3V11MM/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+            }
+          }
+        },
+        {
+          "player": "youtube",
+          "id": "fX1fzZPHaVU",
+          "title": "O sexto meetup do VigoJUG: \"In-Memory Datagrid en arquitecturas de tiempo real\"",
+          "pubDate": 1507057333000,
+          "thumbnails": {
+            "default": {
+              "url": "https://i.ytimg.com/vi/fX1fzZPHaVU/default.jpg",
+              "width": 120,
+              "height": 90
+            },
+            "medium": {
+              "url": "https://i.ytimg.com/vi/fX1fzZPHaVU/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+            },
+            "high": {
+              "url": "https://i.ytimg.com/vi/fX1fzZPHaVU/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+            }
+          }
+        },
+        {
+          "player": "youtube",
+          "id": "8643WerUG-s",
+          "title": "O cuarto meetup do VigoJUG: Kotlin, o Java para o século XXI",
+          "pubDate": 1507016769000,
+          "thumbnails": {
+            "default": {
+              "url": "https://i.ytimg.com/vi/8643WerUG-s/default.jpg",
+              "width": 120,
+              "height": 90
+            },
+            "medium": {
+              "url": "https://i.ytimg.com/vi/8643WerUG-s/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+            },
+            "high": {
+              "url": "https://i.ytimg.com/vi/8643WerUG-s/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+            }
+          }
+        },
+        {
+          "player": "youtube",
+          "id": "4yvSSZMHTZo",
+          "title": "Reactive programming con RxJava",
+          "pubDate": 1493755039000,
+          "thumbnails": {
+            "default": {
+              "url": "https://i.ytimg.com/vi/4yvSSZMHTZo/default.jpg",
+              "width": 120,
+              "height": 90
+            },
+            "medium": {
+              "url": "https://i.ytimg.com/vi/4yvSSZMHTZo/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+            },
+            "high": {
+              "url": "https://i.ytimg.com/vi/4yvSSZMHTZo/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+            }
+          }
+        },
+        {
+          "player": "youtube",
+          "id": "KHdVe9fOa-U",
+          "title": "Introducción de Cassandra con Java",
+          "pubDate": 1493754951000,
+          "thumbnails": {
+            "default": {
+              "url": "https://i.ytimg.com/vi/KHdVe9fOa-U/default.jpg",
+              "width": 120,
+              "height": 90
+            },
+            "medium": {
+              "url": "https://i.ytimg.com/vi/KHdVe9fOa-U/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+            },
+            "high": {
+              "url": "https://i.ytimg.com/vi/KHdVe9fOa-U/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+            }
+          }
+        },
+        {
+          "player": "youtube",
+          "id": "pLsC3jnbX5o",
+          "title": "Emisión en directo de Vigo JUG",
+          "pubDate": 1490819092000,
+          "thumbnails": {
+            "default": {
+              "url": "https://i.ytimg.com/vi/pLsC3jnbX5o/default.jpg",
+              "width": 120,
+              "height": 90
+            },
+            "medium": {
+              "url": "https://i.ytimg.com/vi/pLsC3jnbX5o/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+            },
+            "high": {
+              "url": "https://i.ytimg.com/vi/pLsC3jnbX5o/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+            }
+          }
+        },
+        {
+          "player": "youtube",
+          "id": "smG2P6Esvnc",
+          "title": "\"De Groovy... e Sancho Panza\" por Antón Rodríguez de Optare Solutions 30 min.",
+          "pubDate": 1490818577000,
+          "thumbnails": {
+            "default": {
+              "url": "https://i.ytimg.com/vi/smG2P6Esvnc/default.jpg",
+              "width": 120,
+              "height": 90
+            },
+            "medium": {
+              "url": "https://i.ytimg.com/vi/smG2P6Esvnc/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+            },
+            "high": {
+              "url": "https://i.ytimg.com/vi/smG2P6Esvnc/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+            }
+          }
+        },
+        {
+          "player": "youtube",
+          "id": "PKqTlj38X7M",
+          "title": "Make Java Great Again! por @tomasalmeida de Netcentric. 30 min.",
+          "pubDate": 1490818476000,
+          "thumbnails": {
+            "default": {
+              "url": "https://i.ytimg.com/vi/PKqTlj38X7M/default.jpg",
+              "width": 120,
+              "height": 90
+            },
+            "medium": {
+              "url": "https://i.ytimg.com/vi/PKqTlj38X7M/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+            },
+            "high": {
+              "url": "https://i.ytimg.com/vi/PKqTlj38X7M/hqdefault.jpg",
               "width": 480,
               "height": 360
             }
@@ -4630,7 +4644,8 @@
             }
           }
         }
-      ]
+      ],
+      "eventList": []
     },
     "wppontevedra": {
       "name": "WordpressPontevedra",
@@ -4645,7 +4660,8 @@
       },
       "inactive": true,
       "nextEvent": null,
-      "videoList": []
+      "videoList": [],
+      "eventList": []
     },
     "vigowordpress": {
       "name": "VigoWordpress",
@@ -5523,7 +5539,8 @@
             }
           }
         }
-      ]
+      ],
+      "eventList": []
     }
   },
   "nextEvent": null

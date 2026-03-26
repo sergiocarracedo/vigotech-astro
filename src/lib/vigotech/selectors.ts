@@ -15,7 +15,10 @@ export const getRecentVideos = (videos: VideoEntry[], amount = 4): VideoEntry[] 
   sortVideosByDate(videos).slice(0, amount)
 
 export const getUpcomingEvents = (events: EventEntry[], amount = 3): EventEntry[] => {
-  const upcoming = [...events].sort((a, b) => a.data.date - b.data.date)
+  const now = Date.now()
+  const upcoming = [...events]
+    .filter((event) => event.data.date >= now)
+    .sort((a, b) => a.data.date - b.data.date)
 
   return upcoming.slice(0, amount)
 }

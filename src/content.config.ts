@@ -1,34 +1,9 @@
-import { z } from 'astro/zod'
+import { glob } from 'astro/loaders'
 import { defineCollection } from 'astro:content'
+import { z } from 'astro/zod'
 
 import { documentSources } from './lib/vigotech/documents'
 import { loadVigotechSources, slugify, toLocalGroupLogo } from './lib/vigotech/source'
-
-type EventEntry = {
-  id: string
-  groupId: string
-  groupName: string
-  groupLogo: string | null
-  title: string
-  description: string | null
-  date: number
-  dateISO: string
-  location: string | null
-  link: string | null
-}
-
-type VideoEntry = {
-  id: string
-  sourceId: string
-  groupId: string
-  groupName: string
-  groupLogo: string | null
-  title: string
-  player: string
-  url: string | null
-  publishedAt: number | null
-  thumbnail: string | null
-}
 
 const groups = defineCollection({
   loader: async () => {
@@ -87,108 +62,9 @@ const groups = defineCollection({
 })
 
 const events = defineCollection({
-  loader: async () => {
-    const useMockEvents = process.env.VIGOTECH_MOCK_EVENTS === 'true'
-    const { generated, source } = await loadVigotechSources()
-    const members = generated.members ?? {}
-    const sourceMembers = source.members ?? {}
-    const entries: EventEntry[] = []
-
-    const resolveGroupLogo = (groupId: string): string | null => {
-      const generatedMember = members[groupId] as Record<string, unknown> | undefined
-      const sourceMember = sourceMembers[groupId] as Record<string, unknown> | undefined
-      return toLocalGroupLogo(
-        (generatedMember?.logo as string | undefined) ??
-          (sourceMember?.logo as string | undefined) ??
-          null,
-      )
-    }
-
-    const pushEvent = (groupId: string, groupName: string, eventRaw: unknown) => {
-      if (!eventRaw || typeof eventRaw !== 'object') {
-        return
-      }
-
-      const event = eventRaw as Record<string, unknown>
-      const dateRaw = event.date
-      const parsedDate =
-        typeof dateRaw === 'number'
-          ? dateRaw
-          : typeof dateRaw === 'string'
-            ? Date.parse(dateRaw)
-            : Number.NaN
-
-      if (!Number.isFinite(parsedDate)) {
-        return
-      }
-
-      const title =
-        (event.title as string | undefined) ??
-        (event.name as string | undefined) ??
-        `Upcoming event from ${groupName}`
-
-      entries.push({
-        id: `${groupId}-${parsedDate}-${slugify(title)}`,
-        groupId,
-        groupName,
-        groupLogo: resolveGroupLogo(groupId),
-        title,
-        description: (event.description as string | undefined) ?? null,
-        date: parsedDate,
-        dateISO: new Date(parsedDate).toISOString(),
-        location: (event.location as string | undefined) ?? null,
-        link: (event.link as string | undefined) ?? (event.url as string | undefined) ?? null,
-      })
-    }
-
-    pushEvent('root', generated.name ?? 'VigoTech Alliance', generated.nextEvent)
-
-    for (const [groupId, member] of Object.entries(members)) {
-      const groupName = ((member.name as string | undefined) ?? groupId) || groupId
-      pushEvent(groupId, groupName, member.nextEvent)
-    }
-
-    if (useMockEvents) {
-      const mergedGroups = new Map<string, string>()
-
-      for (const [groupId, member] of Object.entries(sourceMembers)) {
-        mergedGroups.set(groupId, ((member.name as string | undefined) ?? groupId) || groupId)
-      }
-
-      for (const [groupId, member] of Object.entries(members)) {
-        mergedGroups.set(groupId, ((member.name as string | undefined) ?? groupId) || groupId)
-      }
-
-      const groupsWithEvents = new Set(entries.map((entry) => entry.groupId))
-      const now = Date.now()
-      const groupEntries = [...mergedGroups.entries()].filter(
-        ([groupId]) => !groupsWithEvents.has(groupId),
-      )
-      const fallbackCount = Math.min(Math.max(0, 10 - entries.length), groupEntries.length)
-
-      for (let index = 0; index < fallbackCount; index += 1) {
-        const [groupId, groupName] = groupEntries[index]
-        const fakeDate = now + (index + 1) * 1000 * 60 * 60 * 24 * 7
-        const title = `${groupName} Meetup Session ${index + 1}`
-
-        entries.push({
-          id: `fake-${groupId}-${fakeDate}`,
-          groupId,
-          groupName,
-          groupLogo: resolveGroupLogo(groupId),
-          title,
-          description: `Synthetic event generated for development preview of ${groupName}.`,
-          date: fakeDate,
-          dateISO: new Date(fakeDate).toISOString(),
-          location: 'Vigo / Galicia',
-          link: `https://example.com/events/${slugify(groupName)}-${index + 1}`,
-        })
-      }
-    }
-
-    return entries
-  },
+  loader: glob({ pattern: '**/*.md', base: './src/content/events' }),
   schema: z.object({
+    sourceId: z.string(),
     groupId: z.string(),
     groupName: z.string(),
     groupLogo: z.string().nullable(),
@@ -202,69 +78,7 @@ const events = defineCollection({
 })
 
 const videos = defineCollection({
-  loader: async () => {
-    const { generated } = await loadVigotechSources()
-    const members = generated.members ?? {}
-    const entries: VideoEntry[] = []
-
-    for (const [groupId, member] of Object.entries(members)) {
-      const rawList = member.videoList
-      const videoList = Array.isArray(rawList)
-        ? rawList
-        : rawList && typeof rawList === 'object'
-          ? Object.values(rawList as Record<string, unknown>)
-          : []
-      const groupName = ((member.name as string | undefined) ?? groupId) || groupId
-      const groupLogo = toLocalGroupLogo((member.logo as string | undefined) ?? null)
-
-      videoList.forEach((videoRaw, index) => {
-        if (!videoRaw || typeof videoRaw !== 'object') {
-          return
-        }
-
-        const video = videoRaw as Record<string, unknown>
-        const sourceId =
-          (video.id as string | undefined) ?? `${groupId}-${String(video.pubDate ?? index)}`
-        const title = (video.title as string | undefined) ?? `${groupName} video ${index + 1}`
-        const pubDate =
-          typeof video.pubDate === 'number'
-            ? video.pubDate
-            : typeof video.pubDate === 'string'
-              ? Date.parse(video.pubDate)
-              : null
-
-        const thumbnails =
-          (video.thumbnails as Record<string, Record<string, unknown>> | undefined) ?? {}
-        const thumbnail =
-          (thumbnails.standard?.url as string | undefined) ??
-          (thumbnails.high?.url as string | undefined) ??
-          (thumbnails.medium?.url as string | undefined) ??
-          (thumbnails.default?.url as string | undefined) ??
-          null
-
-        const player = (video.player as string | undefined) ?? 'youtube'
-        const url =
-          player === 'youtube'
-            ? `https://www.youtube.com/watch?v=${sourceId}`
-            : ((video.url as string | undefined) ?? null)
-
-        entries.push({
-          id: `${groupId}-${sourceId}`,
-          sourceId,
-          groupId,
-          groupName,
-          groupLogo,
-          title,
-          player,
-          url,
-          publishedAt: pubDate,
-          thumbnail,
-        })
-      })
-    }
-
-    return entries
-  },
+  loader: glob({ pattern: '**/*.md', base: './src/content/videos' }),
   schema: z.object({
     sourceId: z.string(),
     groupId: z.string(),
