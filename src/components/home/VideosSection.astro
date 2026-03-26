@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content'
 
 import { LANG, LOCALE } from '../../i18n/config'
 import { homeVideosT } from '../../i18n/home-videos'
+import { withBase } from '../../lib/base-path'
 import GroupLogo from '../ui/GroupLogo.astro'
 
 type Props = {
@@ -33,7 +34,7 @@ const formatDate = (value: number | null): string => {
         <p class='font-headline text-xs tracking-[0.12em] text-primary uppercase'>{t.eyebrow}</p>
         <h2 class='font-headline text-3xl tracking-tight sm:text-5xl'>{t.heading}</h2>
       </div>
-      <a href='/videos' class='text-sm font-semibold text-primary underline underline-offset-3'>
+      <a href={withBase('/videos')} class='text-sm font-semibold text-primary underline underline-offset-3'>
         {t.viewAll}
       </a>
     </header>
@@ -45,7 +46,7 @@ const formatDate = (value: number | null): string => {
             <a href={video.data.url ?? '#'} target='_blank' rel='noreferrer' class='block'>
               {video.data.thumbnail ? (
                 <img
-                  src={video.data.thumbnail}
+                  src={withBase(video.data.thumbnail)}
                   alt={video.data.title}
                   class='aspect-video w-full object-cover'
                   loading='lazy'

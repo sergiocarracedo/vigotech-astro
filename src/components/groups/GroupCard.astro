@@ -4,6 +4,7 @@ import { Icon } from 'astro-icon/components'
 
 import { LANG } from '../../i18n/config'
 import { groupsT } from '../../i18n/groups'
+import { withBase } from '../../lib/base-path'
 import { getGroupSocialLinks } from '../../lib/vigotech/socials'
 import GroupLogo from '../ui/GroupLogo.astro'
 
@@ -52,8 +53,8 @@ const cardWidth = 'w-full'
         </p>
         {
           group.data.hasVideos && (
-            <a
-              href={`/videos?group=${encodeURIComponent(group.id)}`}
+              <a
+              href={withBase(`/videos?group=${encodeURIComponent(group.id)}`)}
               class='mt-1 inline-block text-xs font-semibold text-primary'
             >
               {t.viewVideos}

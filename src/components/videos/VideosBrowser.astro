@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content'
 
 import { LANG, LOCALE } from '../../i18n/config'
 import { videosBrowserT } from '../../i18n/videos-browser'
+import { withBase } from '../../lib/base-path'
 import FloatingHeader from '../ui/FloatingHeader.astro'
 import GroupLogo from '../ui/GroupLogo.astro'
 
@@ -60,7 +61,7 @@ const formatDate = (value: number | null): string => {
           <a href={video.data.url ?? '#'} target='_blank' rel='noreferrer' class='block'>
             {video.data.thumbnail ? (
               <img
-                src={video.data.thumbnail}
+                src={withBase(video.data.thumbnail)}
                 alt={video.data.title}
                 class='aspect-video w-full object-cover'
                 loading='lazy'

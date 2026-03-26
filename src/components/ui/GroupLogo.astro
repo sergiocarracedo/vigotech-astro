@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../../lib/base-path'
+
 type Props = {
   src: string | null
   name: string
@@ -22,12 +24,14 @@ const initials = name
   .map((part) => part[0])
   .join('')
   .toUpperCase()
+
+const resolvedSrc = src ? withBase(src) : null
 ---
 
 {
-  src ? (
+  resolvedSrc ? (
     <img
-      src={src}
+      src={resolvedSrc}
       alt={name}
       loading="lazy"
       class={`vt-squircle ${sizeClass} border border-[var(--line)] bg-white object-cover ${customClass}`}

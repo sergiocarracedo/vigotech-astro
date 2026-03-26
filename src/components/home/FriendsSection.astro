@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content'
 import { LANG } from '../../i18n/config'
 import { homeFriendsT } from '../../i18n/home-friends'
+import { withBase } from '../../lib/base-path'
 
 type Props = {
   friends: Array<CollectionEntry<'friends'>>
@@ -22,7 +23,7 @@ const t = homeFriendsT[LANG]
           {friends.map((friend) => (
             <a class='vt-card flex min-h-30 items-center justify-center p-4' href={friend.data.link ?? '#'}>
               {friend.data.logo ? (
-                <img src={friend.data.logo} alt={friend.data.name} class='max-h-14 object-contain' loading='lazy' />
+                <img src={withBase(friend.data.logo)} alt={friend.data.name} class='max-h-14 object-contain' loading='lazy' />
               ) : (
                 <span class='text-sm text-[var(--ink-soft)]'>{friend.data.name}</span>
               )}
