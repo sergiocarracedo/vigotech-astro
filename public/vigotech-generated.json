@@ -8,7 +8,10 @@
     "mail": "alliance@vigotech.org",
     "github": "https://github.com/VigoTech"
   },
-  "events": { "type": "eventbrite", "eventbriteid": "17365087639" },
+  "events": {
+    "type": "eventbrite",
+    "eventbriteid": "17365087639"
+  },
   "members": {
     "agilevigo": {
       "name": "Agile Vigo",
@@ -18,7 +21,19 @@
         "meetup": "https://www.meetup.com/es-ES/agile-vigo/",
         "github": "https://github.com/agileVigo"
       },
-      "events": [{ "type": "meetup", "meetupid": "agile-vigo" }],
+      "events": [
+        {
+          "type": "meetup",
+          "meetupid": "luxembourg-vibe-coding-meetup-group"
+        }
+      ],
+      "inactive": true,
+      "nextEvent": {
+        "title": "Vibe Coding Luxembourg: Build a Real App in 60 Minutes with AI",
+        "date": 1774544400000,
+        "url": "https://www.meetup.com/luxembourg-vibe-coding-meetup-group/events/313651478/",
+        "location": "Online event"
+      },
       "videoList": []
     },
     "aindustriosa": {
@@ -30,8 +45,17 @@
         "meetup": "https://www.meetup.com/es-ES/AIndustriosa/",
         "youtube": "https://www.youtube.com/channel/UC9DPKfcLiNd7SEU-QLlIG7A"
       },
-      "events": { "type": "meetup", "meetupid": "AIndustriosa" },
-      "videos": [{ "type": "youtube", "channel_id": "UC9DPKfcLiNd7SEU-QLlIG7A" }],
+      "events": {
+        "type": "meetup",
+        "meetupid": "AIndustriosa"
+      },
+      "videos": [
+        {
+          "type": "youtube",
+          "channel_id": "UC9DPKfcLiNd7SEU-QLlIG7A"
+        }
+      ],
+      "nextEvent": null,
       "videoList": [
         {
           "player": "youtube",
@@ -222,7 +246,12 @@
         "meetup": "https://www.meetup.com/es-ES/blockchain_gal_vigo/",
         "github": "https://github.com/blockchain-gal"
       },
-      "events": { "type": "meetup", "meetupid": "blockchain_gal_vigo" },
+      "events": {
+        "type": "meetup",
+        "meetupid": "blockchain_gal_vigo"
+      },
+      "inactive": true,
+      "nextEvent": null,
       "videoList": []
     },
     "craftersvigo": {
@@ -232,7 +261,11 @@
         "twitter": "https://twitter.com/CraftersVigo",
         "meetup": "https://www.meetup.com/craftersvigo/"
       },
-      "events": { "type": "meetup", "meetupid": "craftersvigo" },
+      "events": {
+        "type": "meetup",
+        "meetupid": "craftersvigo"
+      },
+      "nextEvent": null,
       "videoList": []
     },
     "galpon": {
@@ -243,6 +276,7 @@
         "twitter": "https://twitter.com/galpon",
         "maillist": "https://www.galpon.org/content/listas-correo-galpon"
       },
+      "nextEvent": null,
       "videoList": []
     },
     "galstech": {
@@ -252,7 +286,12 @@
         "meetup": "https://www.meetup.com/GalsTech/",
         "twitter": "https://twitter.com/galstech_?lang=es"
       },
-      "events": { "type": "meetup", "meetupid": "galstech" },
+      "events": {
+        "type": "meetup",
+        "meetupid": "galstech"
+      },
+      "inactive": true,
+      "nextEvent": null,
       "videoList": []
     },
     "gdgvigo": {
@@ -263,8 +302,20 @@
         "meetup": "https://www.meetup.com/es-ES/GDGVigo/?chapter_analytics_code=UA-73757047-1",
         "youtube": "https://www.youtube.com/user/GDGVigo"
       },
-      "events": [{ "type": "meetup", "meetupid": "GDGVigo" }],
-      "videos": [{ "type": "youtube", "channel_id": "UC3BXzHGAMx7tAgVD1CqCuCQ" }],
+      "events": [
+        {
+          "type": "meetup",
+          "meetupid": "GDGVigo"
+        }
+      ],
+      "videos": [
+        {
+          "type": "youtube",
+          "channel_id": "UC3BXzHGAMx7tAgVD1CqCuCQ"
+        }
+      ],
+      "inactive": true,
+      "nextEvent": null,
       "videoList": [
         {
           "player": "youtube",
@@ -365,6 +416,7 @@
         "twitter": "https://twitter.com/JoomlaVigo",
         "facebook": "https://www.facebook.com/JoomlaVigo/"
       },
+      "nextEvent": null,
       "videoList": []
     },
     "phpvigo": {
@@ -378,10 +430,23 @@
         "youtube": "https://www.youtube.com/c/phpvigo"
       },
       "events": [
-        { "type": "meetup", "meetupid": "phpvigo" },
-        { "type": "json", "source": "https://www.phpvigo.com/events.json" }
+        {
+          "type": "meetup",
+          "meetupid": "phpvigo"
+        },
+        {
+          "type": "json",
+          "source": "https://www.phpvigo.com/events.json"
+        }
       ],
-      "videos": [{ "type": "youtube", "channel_id": "UCzcSOwRc7bfKs9jPehJRNxQ" }],
+      "videos": [
+        {
+          "type": "youtube",
+          "channel_id": "UCzcSOwRc7bfKs9jPehJRNxQ"
+        }
+      ],
+      "inactive": true,
+      "nextEvent": null,
       "videoList": [
         {
           "player": "youtube",
@@ -577,8 +642,16 @@
         "maillist": "https://lists.es.python.org/listinfo/vigo",
         "youtube": "https://www.youtube.com/channel/UCTUXabChakosnupWEnz4xTA"
       },
-      "events": { "type": "json", "source": "https://www.python-vigo.es/events.json" },
-      "videos": [{ "type": "youtube", "channel_id": "UCTUXabChakosnupWEnz4xTA" }],
+      "events": {
+        "type": "json",
+        "source": "https://www.python-vigo.es/events.json"
+      },
+      "videos": [
+        {
+          "type": "youtube",
+          "channel_id": "UCTUXabChakosnupWEnz4xTA"
+        }
+      ],
       "nextEvent": {
         "date": 1671130800000,
         "location": "Cafe UF",
@@ -764,7 +837,12 @@
         "meetup": "https://www.meetup.com/es/SEO-Galicia/",
         "twitter": "https://twitter.com/seo_galicia"
       },
-      "events": { "type": "meetup", "meetupid": "SEO-Galicia" },
+      "events": {
+        "type": "meetup",
+        "meetupid": "SEO-Galicia"
+      },
+      "inactive": true,
+      "nextEvent": null,
       "videoList": []
     },
     "sysadmingalicia": {
@@ -774,13 +852,18 @@
         "meetup": "https://www.meetup.com/es-ES/Sysadmin-Galicia/",
         "twitter": "https://twitter.com/sysadmingalicia/"
       },
-      "events": { "type": "meetup", "meetupid": "Sysadmin-Galicia" },
+      "events": {
+        "type": "meetup",
+        "meetupid": "Sysadmin-Galicia"
+      },
       "videos": [
         {
           "type": "teltek",
           "source": "https://replay.teltek.es/podcast/series/58af67c7a7bc283f008b456c/collection.xml"
         }
       ],
+      "inactive": true,
+      "nextEvent": null,
       "videoList": []
     },
     "uxgalicia": {
@@ -791,7 +874,12 @@
         "meetup": "https://www.meetup.com/es-ES/Experiencia-de-Usuario-Meetup/",
         "twitter": "https://twitter.com/uxgalicia/"
       },
-      "events": { "type": "meetup", "meetupid": "Experiencia-de-Usuario-Meetup" },
+      "events": {
+        "type": "meetup",
+        "meetupid": "Experiencia-de-Usuario-Meetup"
+      },
+      "inactive": true,
+      "nextEvent": null,
       "videoList": []
     },
     "vigoadg": {
@@ -801,7 +889,12 @@
         "twitter": "https://twitter.com/VigoADG",
         "meetup": "https://www.meetup.com/Vigo-Android-Developer-Group/"
       },
-      "events": { "type": "meetup", "meetupid": "Vigo-Android-Developer-Group" },
+      "events": {
+        "type": "meetup",
+        "meetupid": "Vigo-Android-Developer-Group"
+      },
+      "inactive": true,
+      "nextEvent": null,
       "videoList": []
     },
     "vigojug": {
@@ -817,11 +910,22 @@
         "ivoox": "https://www.ivoox.com/podcast-laretasgeek_sq_f1939875_1.html",
         "spotify": "https://open.spotify.com/show/2iMpr5Kos3j5YuqB6HfYWL"
       },
-      "events": { "type": "meetup", "meetupid": "Vigo-JUG" },
+      "events": {
+        "type": "meetup",
+        "meetupid": "Vigo-JUG"
+      },
       "videos": [
-        { "type": "youtube", "channel_id": "UCNOihTnorv6dZDANaPXgx_g" },
-        { "type": "youtube", "channel_id": "UCYSy-eQm6Q02o7WiR6JTqJg" }
+        {
+          "type": "youtube",
+          "channel_id": "UCNOihTnorv6dZDANaPXgx_g"
+        },
+        {
+          "type": "youtube",
+          "channel_id": "UCYSy-eQm6Q02o7WiR6JTqJg"
+        }
       ],
+      "inactive": true,
+      "nextEvent": null,
       "videoList": [
         {
           "player": "youtube",
@@ -1198,7 +1302,12 @@
         "meetup": "https://www.meetup.com/es-ES/Pontevedra-WordPress-Meetup/",
         "twitter": "https://twitter.com/wppontevedra"
       },
-      "events": { "type": "meetup", "meetupid": "Pontevedra-WordPress-Meetup" },
+      "events": {
+        "type": "meetup",
+        "meetupid": "Pontevedra-WordPress-Meetup"
+      },
+      "inactive": true,
+      "nextEvent": null,
       "videoList": []
     },
     "vigowordpress": {
@@ -1210,8 +1319,23 @@
         "twitter": "https://twitter.com/wp_vigo",
         "youtube": "https://www.youtube.com/channel/UCuipENHgKAhr1VgK59156Tw"
       },
-      "events": { "type": "meetup", "meetupid": "Vigo-WordPress-Meetup" },
-      "videos": [{ "type": "youtube", "channel_id": "UCuipENHgKAhr1VgK59156Tw" }],
+      "events": {
+        "type": "meetup",
+        "meetupid": "Vigo-WordPress-Meetup"
+      },
+      "videos": [
+        {
+          "type": "youtube",
+          "channel_id": "UCuipENHgKAhr1VgK59156Tw"
+        }
+      ],
+      "inactive": true,
+      "nextEvent": {
+        "title": "Posicionando sin IA en tiempos de IA",
+        "date": 1774548000000,
+        "url": "https://www.meetup.com/vigo-wordpress-meetup/events/313620908/",
+        "location": "Círculo de Empresarios de Galicia - Rúa de García Barbón, 62, Vigo, Po - Vigo - Po - es"
+      },
       "videoList": [
         {
           "player": "youtube",
@@ -1413,5 +1537,6 @@
         }
       ]
     }
-  }
+  },
+  "nextEvent": null
 }

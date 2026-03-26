@@ -21,8 +21,8 @@ importers:
         specifier: ^1.1.5
         version: 1.1.5
       metagroup-schema-tools:
-        specifier: ^1.0.8
-        version: 1.0.8
+        specifier: ^1.0.9
+        version: 1.0.9
       shaders:
         specifier: ^2.4.78
         version: 2.4.78(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -2331,8 +2331,8 @@ packages:
     resolution: {integrity: sha512-pxQJQzB6djGPXh08dacEloMFopsOqGVRKFPYvPOt9XDZ1HasbgDZA74CJGreSU4G3Ak7EFJGoiH2auq+yXISgA==}
     engines: {node: '>=18'}
 
-  metagroup-schema-tools@1.0.8:
-    resolution: {integrity: sha512-L3pIpZEnUrSYoMgiOv33XJrt7/wHDhGeRYQHvNx79uixtZ1Pz4Mx29oRGUMHEE4dZ/njSKaD8qtqdEolFrMkyA==}
+  metagroup-schema-tools@1.0.9:
+    resolution: {integrity: sha512-EsaSMnX3ZApdhn263x0N3/xp1jhjLw81wB57tblR0s5GyVaCN4hQEoGIV0BQLkyKHsydw3hx5xrTc1rSOMTaAw==}
 
   micromark-core-commonmark@2.0.3:
     resolution: {integrity: sha512-RDBrHEMSxVFLg6xvnXmb1Ayr2WzLAWjeSATAoxwKYJV94TeNavgoIdA0a9ytzDSVzBy2YKFK+emCPOEibLeCrg==}
@@ -5747,7 +5747,7 @@ snapshots:
 
   meow@13.2.0: {}
 
-  metagroup-schema-tools@1.0.8:
+  metagroup-schema-tools@1.0.9:
     dependencies:
       googleapis: 74.2.0
       jsonschema: 1.5.0
