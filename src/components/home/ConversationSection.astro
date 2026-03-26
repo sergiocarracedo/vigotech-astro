@@ -3,6 +3,7 @@ import { Icon } from 'astro-icon/components'
 
 import { LANG } from '../../i18n/config'
 import { homeConversationT } from '../../i18n/home-conversation'
+import { withBase } from '../../lib/base-path'
 import ConversationShader from '../shaders/ConversationShader.astro'
 
 const t = homeConversationT[LANG]
@@ -53,7 +54,7 @@ const socialItems = [
           class="inline-flex"
         >
           <img
-            src="/slack.png"
+            src={withBase('/slack.png')}
             alt="Slack"
             class="h-12 w-auto rounded-md bg-white/95 p-1"
             loading="lazy"

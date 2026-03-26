@@ -3,6 +3,7 @@ import Logo from '../../assets/logo.svg'
 import { menuItems } from '../../config/menu'
 import { LANG } from '../../i18n/config'
 import { headerT } from '../../i18n/header'
+import { stripBase, withBase } from '../../lib/base-path'
 import ThemeToggle from '../theme/ThemeToggle.astro'
 
 const t = headerT[LANG]
@@ -14,7 +15,7 @@ const normalizePath = (value: string): string => {
   return value.replace(/\/+$/, '')
 }
 
-const currentPath = normalizePath(Astro.url.pathname)
+const currentPath = normalizePath(stripBase(Astro.url.pathname))
 
 const isActiveUrl = (url: string): boolean => {
   const target = normalizePath(url)
@@ -36,7 +37,7 @@ const isActiveUrl = (url: string): boolean => {
     class="vt-shell flex items-center justify-between px-3 py-4 sm:px-6 sm:py-5"
   >
     <div class="flex flex-none items-center">
-      <a href="/" class="text-primary">
+      <a href={withBase('/')} class="text-primary">
         <Logo
           class="vt-site-logo h-6 w-auto sm:h-7 md:h-8"
           aria-label={t.logoAria}
@@ -49,7 +50,7 @@ const isActiveUrl = (url: string): boolean => {
         menuItems.map((item) => (
           <a
             class="vt-nav-link font-headline text-base font-medium tracking-tight text-slate-600 transition-colors hover:text-primary dark:text-slate-300"
-            href={item.url}
+            href={withBase(item.url)}
             aria-current={isActiveUrl(item.url) ? 'page' : undefined}
           >
             {t.menu[item.id]}
@@ -84,7 +85,7 @@ const isActiveUrl = (url: string): boolean => {
           menuItems.map((item) => (
             <a
               class="vt-mobile-nav-link font-headline text-3xl font-medium tracking-tight text-slate-700 dark:text-slate-200"
-              href={item.url}
+              href={withBase(item.url)}
               aria-current={isActiveUrl(item.url) ? 'page' : undefined}
             >
               {t.menu[item.id]}

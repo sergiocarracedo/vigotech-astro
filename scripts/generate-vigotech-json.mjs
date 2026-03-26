@@ -6,6 +6,8 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const { Events, Videos, Source } = require('metagroup-schema-tools')
 
+const YOUTUBE_RECENT_VIDEOS_LIMIT = 50
+
 const shouldSuppressLog = (args) => {
   const text = args
     .map((arg) => {
@@ -93,6 +95,168 @@ const hasObjectValue = (value) => Boolean(value && typeof value === 'object')
 
 const hasArrayItems = (value) => Array.isArray(value) && value.length > 0
 
+const getVideoId = (video) =>
+  video && typeof video === 'object' && typeof video.id === 'string' && video.id.length > 0
+    ? video.id
+    : null
+
+const combineVideoData = (current, incoming) => {
+  if (!current) {
+    return incoming
+  }
+
+  return {
+    ...current,
+    ...incoming,
+    title: incoming.title ?? current.title,
+    pubDate: incoming.pubDate ?? current.pubDate ?? null,
+    thumbnails: incoming.thumbnails ?? current.thumbnails,
+  }
+}
+
+const mergeVideoLists = (...lists) => {
+  const orderedIds = []
+  const videosById = new Map()
+  const passthroughVideos = []
+
+  for (const list of lists) {
+    if (!Array.isArray(list)) {
+      continue
+    }
+
+    for (const video of list) {
+      const videoId = getVideoId(video)
+
+      if (!videoId) {
+        passthroughVideos.push(video)
+        continue
+      }
+
+      if (!videosById.has(videoId)) {
+        orderedIds.push(videoId)
+      }
+
+      videosById.set(videoId, combineVideoData(videosById.get(videoId), video))
+    }
+  }
+
+  return [...orderedIds.map((videoId) => videosById.get(videoId)), ...passthroughVideos]
+}
+
+const getYoutubeUploadsPlaylistId = (channelId) => {
+  if (typeof channelId !== 'string' || channelId.length < 3 || !channelId.startsWith('UC')) {
+    return null
+  }
+
+  return `UU${channelId.slice(2)}`
+}
+
+const getYoutubeInitialData = async (url) => {
+  const response = await fetch(url, {
+    headers: {
+      'user-agent':
+        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36',
+      'accept-language': 'en-US,en;q=0.9',
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error(`failed to fetch ${url}: ${response.status}`)
+  }
+
+  const html = await response.text()
+  const match = html.match(/var ytInitialData = (\{.*?\});<\/script>/s)
+
+  if (!match) {
+    throw new Error(`ytInitialData not found for ${url}`)
+  }
+
+  return JSON.parse(match[1])
+}
+
+const collectNodesByKey = (value, key, results = []) => {
+  if (Array.isArray(value)) {
+    value.forEach((item) => collectNodesByKey(item, key, results))
+    return results
+  }
+
+  if (!value || typeof value !== 'object') {
+    return results
+  }
+
+  if (key in value) {
+    results.push(value[key])
+  }
+
+  Object.values(value).forEach((item) => collectNodesByKey(item, key, results))
+  return results
+}
+
+const getRendererText = (value) => {
+  if (!value) {
+    return null
+  }
+
+  if (typeof value.simpleText === 'string') {
+    return value.simpleText
+  }
+
+  if (Array.isArray(value.runs)) {
+    return (
+      value.runs
+        .map((run) => run?.text ?? '')
+        .join('')
+        .trim() || null
+    )
+  }
+
+  return null
+}
+
+const normalizeRendererThumbnails = (thumbnailList) => {
+  if (!Array.isArray(thumbnailList) || thumbnailList.length === 0) {
+    return undefined
+  }
+
+  const [defaultThumb, mediumThumb, highThumb, standardThumb = highThumb] = thumbnailList
+
+  return {
+    default: defaultThumb,
+    medium: mediumThumb ?? defaultThumb,
+    high: highThumb ?? mediumThumb ?? defaultThumb,
+    standard: standardThumb ?? highThumb ?? mediumThumb ?? defaultThumb,
+  }
+}
+
+const getYoutubeArchiveVideos = async (channelId) => {
+  const playlistId = getYoutubeUploadsPlaylistId(channelId)
+  if (!playlistId) {
+    return []
+  }
+
+  const initialData = await getYoutubeInitialData(
+    `https://www.youtube.com/playlist?list=${playlistId}`,
+  )
+  const renderers = collectNodesByKey(initialData, 'playlistVideoRenderer')
+
+  return renderers
+    .map((renderer) => {
+      const videoId = typeof renderer?.videoId === 'string' ? renderer.videoId : null
+      if (!videoId) {
+        return null
+      }
+
+      return {
+        player: 'youtube',
+        id: videoId,
+        title: getRendererText(renderer.title) ?? videoId,
+        pubDate: null,
+        thumbnails: normalizeRendererThumbnails(renderer.thumbnail?.thumbnails),
+      }
+    })
+    .filter(Boolean)
+}
+
 const getNextEvent = (member, sources, fallback, label) => {
   const sourceList = toArray(sources)
 
@@ -135,23 +299,30 @@ const getNextEvent = (member, sources, fallback, label) => {
 const getVideoList = async (member, sources, fallback, label) => {
   const sourceList = toArray(sources)
 
-  if (sourceList.some((source) => source?.type === 'youtube') && !process.env.YOUTUBE_API_KEY) {
-    if (hasArrayItems(fallback)) {
-      warnFallback(`keeping previous videoList for ${label}`, 'missing YOUTUBE_API_KEY')
-      return fallback
-    }
-
-    return fallback ?? []
-  }
-
   try {
-    const videoList = await Videos.getGroupVideos(sourceList, 6, {
+    const videoList = await Videos.getGroupVideos(sourceList, YOUTUBE_RECENT_VIDEOS_LIMIT, {
       youtubeApiKey: process.env.YOUTUBE_API_KEY,
       member,
     })
 
-    if (hasArrayItems(videoList)) {
-      return videoList
+    const youtubeSources = sourceList.filter(
+      (source) => source?.type === 'youtube' && source?.channel_id,
+    )
+    const youtubeArchiveLists = await Promise.all(
+      youtubeSources.map(async (source) => {
+        try {
+          return await getYoutubeArchiveVideos(source.channel_id)
+        } catch (error) {
+          warnFallback(`using partial youtube archive for ${label}`, error)
+          return []
+        }
+      }),
+    )
+
+    const mergedVideoList = mergeVideoLists(...youtubeArchiveLists, videoList)
+
+    if (hasArrayItems(mergedVideoList)) {
+      return mergedVideoList
     }
 
     if (hasArrayItems(fallback)) {
