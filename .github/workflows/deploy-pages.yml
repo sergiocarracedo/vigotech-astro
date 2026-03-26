@@ -64,6 +64,12 @@ jobs:
           EVENTBRITE_OAUTH_TOKEN: ${{ secrets.EVENTBRITE_OAUTH_TOKEN }}
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
 
+      - name: Sync Astro content types
+        run: pnpm astro sync
+
+      - name: Format generated content
+        run: pnpm format src/content/events src/content/videos
+
       - name: Commit generated data
         run: |
           if git diff --quiet -- public/vigotech-generated.json src/content/videos src/content/events; then
