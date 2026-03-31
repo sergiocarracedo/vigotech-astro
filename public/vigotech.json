@@ -83,6 +83,10 @@
         "web": "https://www.galpon.org",
         "twitter": "https://twitter.com/galpon",
         "maillist": "https://www.galpon.org/content/listas-correo-galpon"
+      },
+      "events": {
+        "type": "json",
+        "source": "https://raw.githubusercontent.com/Daniel-at-github/vigotech_events/refs/heads/main/calendars/obradoiros_galpon.json"
       }
     },
     "galstech": {
